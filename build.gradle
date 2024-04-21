@@ -1,7 +1,8 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
+	id 'java-library'
+	id 'org.springframework.boot' version '3.2.5' apply(false)
 	id 'io.spring.dependency-management' version '1.1.4'
+	id("maven-publish")
 }
 
 group = 'com.megax'
@@ -9,6 +10,24 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	sourceCompatibility = '21'
+}
+
+publishing {
+	repositories {
+		maven {
+			name = "LoggingPackage"
+			url = uri("https://maven.pkg.github.com/vinay712/logging")
+			credentials {
+				username = project.findProperty("user") ?: System.getenv("USERNAME")
+				password = project.findProperty("token") ?: System.getenv("TOKEN")
+			}
+		}
+	}
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
 }
 
 configurations {
@@ -22,12 +41,12 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework:spring-web:6.1.5'
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
 	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.5'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok:1.18.32'
+
+	annotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
 tasks.named('test') {
