@@ -8,7 +8,7 @@ plugins {
 ext {
 	user = project.findProperty("user") ?: System.getenv("USER")
 	token = project.findProperty("token") ?: System.getenv("PUBLISH_TOKEN")
-	version = '0.0.1-SNAPSHOT'
+	version = project.findProperty("version") ?: '0.0.1-SNAPSHOT'
 }
 group = 'com.megax'
 version = project.findProperty("version")
