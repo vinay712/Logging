@@ -5,8 +5,13 @@ plugins {
 	id("maven-publish")
 }
 
+ext {
+	user = project.findProperty("user") ?: System.getenv("USER")
+	token = project.findProperty("token") ?: System.getenv("PUBLISH_TOKEN")
+	version = '0.0.1-SNAPSHOT'
+}
 group = 'com.megax'
-version = '0.0.2-SNAPSHOT'
+version = project.findProperty("version")
 
 java {
 	sourceCompatibility = '21'
@@ -18,8 +23,8 @@ publishing {
 			name = "MyPackages"
 			url = uri("https://maven.pkg.github.com/vinay712/my_packages")
 			credentials {
-				username = project.findProperty("user") ?: System.getenv("USERNAME")
-				password = project.findProperty("token") ?: System.getenv("TOKEN")
+				username = project.findProperty("user")
+				password = project.findProperty("token")
 			}
 		}
 	}
@@ -47,8 +52,4 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok:1.18.32'
 
 	annotationProcessor 'org.projectlombok:lombok:1.18.32'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }

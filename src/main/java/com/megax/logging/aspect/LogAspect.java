@@ -28,7 +28,6 @@ public class LogAspect {
 
     @Before(value = "gatewayLogs(gatewayLog)")
     private void entryLog(JoinPoint joinPoint, GatewayLog gatewayLog) {
-        System.out.println("TestStart");
         Logger LOGGER = LogManager.getLogger(joinPoint.getSignature().getDeclaringType());
         LOGGER.info("Entering Method:\t {}.{}", MDC.get("transactionId"), joinPoint.getSignature().getDeclaringType().getCanonicalName(),
                 joinPoint.getSignature().getName());
@@ -36,8 +35,6 @@ public class LogAspect {
 
     @After(value = "gatewayLogs(gatewayLog)")
     private void exitLog(JoinPoint joinPoint, GatewayLog gatewayLog) {
-        System.out.println("TestEnd");
-
         Logger LOGGER = LogManager.getLogger(joinPoint.getSignature().getDeclaringType());
         LOGGER.info("Exiting Method:\t {}.{}",MDC.get("transactionId"), joinPoint.getSignature().getDeclaringType().getCanonicalName(),
                 joinPoint.getSignature().getName());
