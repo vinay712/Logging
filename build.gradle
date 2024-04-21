@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.megax'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 
 java {
 	sourceCompatibility = '21'
@@ -15,8 +15,8 @@ java {
 publishing {
 	repositories {
 		maven {
-			name = "LoggingPackage"
-			url = uri("https://maven.pkg.github.com/vinay712/logging")
+			name = "MyPackages"
+			url = uri("https://maven.pkg.github.com/vinay712/my_packages")
 			credentials {
 				username = project.findProperty("user") ?: System.getenv("USERNAME")
 				password = project.findProperty("token") ?: System.getenv("TOKEN")
